@@ -36,14 +36,17 @@
         <jacoco.plugin.version>0.8.12</jacoco.plugin.version>
         <buildnumber.plugin.version>3.2.0</buildnumber.plugin.version>
 
-        <!-- OSGi API (Phase 0: current R6/R7 line; Phase 2 swaps these to R8 individual artifacts) -->
-        <osgi.core.version>6.0.0</osgi.core.version>
-        <osgi.cmpn.version>6.0.0</osgi.cmpn.version>
+        <!-- OSGi R8 API. Core via the R8 osgi.core aggregate (framework 1.10, util.tracker,
+             framework.wiring, resource ...); compendium via individual R8 artifacts. -->
+        <osgi.core.version>8.0.0</osgi.core.version>
+        <osgi.cmpn.version>7.0.0</osgi.cmpn.version>
         <osgi.annotation.version>6.0.1</osgi.annotation.version>
-        <osgi.component.annotations.version>1.4.0</osgi.component.annotations.version>
-        <osgi.component.version>1.4.0</osgi.component.version>
-        <osgi.metatype.annotations.version>1.4.0</osgi.metatype.annotations.version>
-        <osgi.cm.version>1.6.0</osgi.cm.version>
+        <osgi.component.annotations.version>1.5.1</osgi.component.annotations.version>
+        <osgi.component.version>1.5.1</osgi.component.version>
+        <osgi.metatype.annotations.version>1.4.1</osgi.metatype.annotations.version>
+        <osgi.cm.version>1.6.1</osgi.cm.version>
+        <osgi.util.promise.version>1.3.0</osgi.util.promise.version>
+        <osgi.util.function.version>1.2.0</osgi.util.function.version>
 
         <!-- Shared third-party versions -->
         <gson.version>2.8.9</gson.version>
@@ -53,15 +56,27 @@
     <dependencyManagement>
         <dependencies>
             <!-- OSGi API: all build-time only, used as provided scope by modules -->
+            <!-- R8 core aggregate (org.osgi.framework 1.10, util.tracker, framework.wiring, resource, ...) -->
             <dependency>
                 <groupId>org.osgi</groupId>
-                <artifactId>org.osgi.core</artifactId>
+                <artifactId>osgi.core</artifactId>
                 <version>${osgi.core.version}</version>
             </dependency>
+            <!-- R7 compendium aggregate; only logger still uses it (org.osgi.service.log + cm) -->
             <dependency>
                 <groupId>org.osgi</groupId>
                 <artifactId>osgi.cmpn</artifactId>
                 <version>${osgi.cmpn.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.osgi</groupId>
+                <artifactId>org.osgi.util.promise</artifactId>
+                <version>${osgi.util.promise.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.osgi</groupId>
+                <artifactId>org.osgi.util.function</artifactId>
+                <version>${osgi.util.function.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.osgi</groupId>
