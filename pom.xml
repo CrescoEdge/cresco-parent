@@ -114,8 +114,8 @@
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>${maven.compiler.plugin.version}</version>
                     <configuration>
-                        <source>${jdk}</source>
-                        <target>${jdk}</target>
+                        <!-- Cresco standardizes on JVM 21+; release enforces both bytecode and API level -->
+                        <release>${maven.compiler.release}</release>
                     </configuration>
                 </plugin>
                 <plugin>
