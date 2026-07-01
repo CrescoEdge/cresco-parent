@@ -1,0 +1,23 @@
+name: Java CI Cresco Parent POM
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    environment: 'SONATYPE CRED'
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK 21
+        uses: actions/setup-java@v2
+        with:
+          java-version: '21'
+          distribution: 'adopt'
+      # cresco-parent is a pom-only aggregator with no parent of its own, so it must be
+      # published to the snapshot repo FIRST — every other module inherits it.
+      - name: Deploy parent POM to Maven snapshots
+        run: mvn deploy:deploy-file -Dfile=pom.xml -DpomFile=pom.xml -Dpackaging=pom -Durl=https://central.sonatype.com/repository/maven-snapshots/ -DrepositoryId=central-portal-snapshots --settings ci-settings.xml -B
+        env:
+          SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
+          SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
