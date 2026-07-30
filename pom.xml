@@ -55,6 +55,14 @@
 
     <dependencyManagement>
         <dependencies>
+            <!-- commons-configuration2 2.15.1 needs commons-io >= 2.20.0 (IOSupplier.getUnchecked);
+                 pin project-wide so no module bundle embeds an older transitive commons-io
+                 (2.14.0/2.16.1 cause NoSuchMethodError at agent startup). -->
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>2.22.0</version>
+            </dependency>
             <!-- OSGi API: all build-time only, used as provided scope by modules -->
             <!-- R8 core aggregate (org.osgi.framework 1.10, util.tracker, framework.wiring, resource, ...) -->
             <dependency>
